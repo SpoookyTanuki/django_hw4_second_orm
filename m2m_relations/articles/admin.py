@@ -26,11 +26,11 @@ class ArticleScopeInlineFormset(BaseInlineFormSet):
     def clean(self):
         for form in self.forms:
             tags_counter = 0
-            if form.cleaned_data is True:
+            if form.cleaned_data.is_main is True:
                 tags_counter += 1
             if tags_counter == 0:
                 raise ValidationError('Укажите основной раздел')
-            if tags_counter >= 2:
+            if tags_counter >= 1:
                 raise ValidationError('Основным может быть только один раздел')
         return super(ArticleScopeInlineFormset, self).clean()
 
